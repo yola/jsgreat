@@ -216,3 +216,7 @@ Variables must be defined earlier in the code than they are used. (Hoisting make
 ## Trailing Whitespace
 
 Lines shouldn't have whitespace at the end. We've always enforced this. Now [JSHint will enforce it](http://www.jshint.com/docs/options/#trailing).
+
+## 80 Column Limit
+
+Although the style guide isn't fully explicit about it, lines should generally not exceed 80 characters.
