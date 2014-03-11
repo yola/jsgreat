@@ -213,6 +213,6 @@ One specific example of why this can be important is in Backbone views, which us
 
 Variables must be defined earlier in the code than they are used. (Hoisting makes it possible to accidentally use a variable before it's defined.) This will be [enforced by JSHint](http://www.jshint.com/docs/options/#latedef).
 
-## Trailing whitespace
+## Trailing Whitespace
 
 Lines shouldn't have whitespace at the end. We've always enforced this. Now [JSHint will enforce it](http://www.jshint.com/docs/options/#trailing).
