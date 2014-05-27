@@ -1,0 +1,16 @@
+{
+  "name": "jsgreat",
+  "version": "0.1.0",
+  "description": "Yola's guide to writing JS great.",
+  "main": ".jshintrc",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yola/jsgreat.git"
+  },
+  "author": "",
+  "license": "Private",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/yola/jsgreat/issues"
+  }
+}
