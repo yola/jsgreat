@@ -1,0 +1,15 @@
+{
+  "name": "jsgreat",
+  "version": "0.1.0",
+  "description": "Yola's guide to writing JS great.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yola/jsgreat.git"
+  },
+  "author": "Yola Engineering <engineers@yola.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yola/jsgreat/issues"
+  },
+  "homepage": "https://github.com/yola/jsgreat"
+}
