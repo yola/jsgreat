@@ -23,7 +23,7 @@ var foo = 'foo',
   baz = 'baz';
 ```
 **Do this instead:**
-```javascrip'
+```javascript
 var foo = 'foo';
 var bar = 'bar';
 var baz = 'baz';
