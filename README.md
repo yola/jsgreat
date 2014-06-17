@@ -7,9 +7,6 @@ The following additions and variations will be enforced:
 ## Strings
 The guide [prefers `'` over `"`](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml?showone=Strings#Strings). We only require that quotes are used consistently within the file. This will be [enforced by jshint](http://www.jshint.com/docs/options/#quotmark).
 
-## Comments
-The guide [requires JSDoc comments for modules, classes, and functions](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml?showone=Comments#Comments). We do not require any comments, and prefer that comments are reserved for explaining surprising or unexpected code.
-
 ## Indentation
 Prefer 2-space indentation for all Javascript and JSON files.
 
