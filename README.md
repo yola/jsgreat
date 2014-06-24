@@ -15,15 +15,15 @@ Prefer multiple `var` statements, each on their own line, for any variables that
 
 **Don't do this:**
 ```javascript
-var foo = "foo",
-  bar = "bar",
-  baz = "baz";
+var foo = 'foo',
+  bar = 'bar',
+  baz = 'baz';
 ```
 **Do this instead:**
 ```javascript
-var foo = "foo";
-var bar = "bar";
-var baz = "baz";
+var foo = 'foo';
+var bar = 'bar';
+var baz = 'baz';
 ```
 **This is okay, too:**
 ```javascript
@@ -52,26 +52,26 @@ function() {
 Variable assignments should not be aligned by value.
 **Don't do this:**
 ```javascript
-var foo      = "foo";
-var bar      = "bar";
-var fizzbuzz = "fizzbuzz";
+var foo      = 'foo';
+var bar      = 'bar';
+var fizzbuzz = 'fizzbuzz';
 
 var obj = {
-  foo     : "foo",
-  bar     : "bar",
-  fizzbuzz: "fizzbuzz"
+  foo     : 'foo',
+  bar     : 'bar',
+  fizzbuzz: 'fizzbuzz'
 };
 ```
 **Do this instead:**
 ```javascript
-var foo = "foo";
-var bar = "bar";
-var fizzbuzz = "fizzbuzz";
+var foo = 'foo';
+var bar = 'bar';
+var fizzbuzz = 'fizzbuzz';
 
 var obj = {
-  foo: "foo",
-  bar: "bar",
-  fizzbuzz: "fizzbuzz"
+  foo: 'foo',
+  bar: 'bar',
+  fizzbuzz: 'fizzbuzz'
 };
 ```
 
@@ -81,16 +81,16 @@ Prefer `var`ed function expressions over anonymous functions for callbacks where
 
 **Don't do this:**
 ```javascript
-$(".someElement").click(function(){
-  console.log("It was clicked!");
+$('.someElement').click(function(){
+  console.log('It was clicked!');
 });
 ```
 **Do this instead:**
 ```javascript
 var someElementClicked = function(){
-  console.log("It was clicked!");
+  console.log('It was clicked!');
 });
-$(".someElement").click(someElementClicked);
+$('.someElement').click(someElementClicked);
 ```
 This is especially important in `new`ed objects like Backbone Models and Views, where scope is important, and callbacks often reference other properties on the instance.
 
@@ -102,10 +102,10 @@ Prefer calling functions in the required scope vs. saving `this` in a `that` or 
 ```javascript
 // Code that needs access to local variables and `this` in an anonymous callback
 var MyModule = {
-  message: "Hello World!",
+  message: 'Hello World!',
   doGetAndCallback: function(callback){
     var that = this;
-    $.get("some/ajax/request", function(){
+    $.get('some/ajax/request', function(){
       callback(that.message);
     });
   }
@@ -115,10 +115,10 @@ var MyModule = {
 ```
 // Save just the info you need
 var MyModule = {
-  message: "Hello World!",
+  message: 'Hello World!',
   doGetAndCallback: function(callback){
     var message = this.message;
-    $.get("some/ajax/request", function(){
+    $.get('some/ajax/request', function(){
       callback(message);
     });
   }
@@ -126,9 +126,9 @@ var MyModule = {
 
 // Change the scope to make sure it is called in the proper context
 var MyModule = {
-  message: "Hello World!",
+  message: 'Hello World!',
   doGetAndCallback: function(callback){
-    $.get("some/ajax/request", _.bind(function(){
+    $.get('some/ajax/request', _.bind(function(){
       callback(this.message);
     }, this));
   }
@@ -137,9 +137,9 @@ var MyModule = {
 **Or, better yet, return a Deferred/Promise, and let the caller setup the callback on their end:**
 ```javascript
 var MyModule={
-  message: "Hello World!",
+  message: 'Hello World!',
   doGet: function(){
-    return $.get("some/ajax/request");
+    return $.get('some/ajax/request');
   }
 };
 ```
@@ -151,12 +151,12 @@ Curly braces are required around blocks in loops and conditionals. This is [enfo
 **Don't do this:**
 ```
 if(foo)
-  console.log("bar");
+  console.log('bar');
 ```
 **Do this instead:**
 ```
 if(foo){
-  console.log("bar");
+  console.log('bar');
 }
 ```
 
@@ -165,14 +165,14 @@ if(foo){
 All modules should be wrapped in IIFEs or RequireJS CommonJS define calls, and use strict mode. This will be enforced by JSHint
 ```
 (function(){
-  "strict mode";
+  'strict mode';
   //Code goes here
 })();
 ```
 Or
 ```
 define(function(require, exports, module)){
-  "strict mode";
+  'strict mode';
   //code goes here
 });
 ```
@@ -204,7 +204,7 @@ All variables must be explicitly defined. This option will be [enforced by JSHin
 
 This is a simple way to catch mistyped variable names and copy/paste errors, but it also helps to prevent over-dependence on the global namespace, and forces modules to be more explicit about their dependencies.
 
-One specific example of why this can be important is in Backbone views, which use a scoped `$` function to find elements inside the view. If you accidentally use the global `$(".selector")` instead of `this.$(".selector")`, you're searching the full DOM instead of just your view.
+One specific example of why this can be important is in Backbone views, which use a scoped `$` function to find elements inside the view. If you accidentally use the global `$('.selector')` instead of `this.$('.selector')`, you're searching the full DOM instead of just your view.
 
 ## Using Variables Before Definition
 
