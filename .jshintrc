@@ -8,6 +8,7 @@
   "strict": true,
   "trailing": true,
   "node": true,
+  "expr": true,
   "globals": {
     "module": true,
     "require": true,
