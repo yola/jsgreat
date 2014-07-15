@@ -21,6 +21,7 @@
     "gettext": true,
     "describe": true,
     "it": true,
+    "before": true,
     "beforeEach": true,
     "afterEach": true,
     "expect": true,
