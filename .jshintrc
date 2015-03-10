@@ -9,6 +9,7 @@
   "trailing": true,
   "node": true,
   "expr": true,
+  "maxlen": 80,
   "globals": {
     "module": true,
     "require": true,
