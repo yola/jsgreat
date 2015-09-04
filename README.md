@@ -115,7 +115,7 @@ var MyModule = {
 };
 ```
 **Do either of these instead:**
-```
+```javascript
 // Save just the info you need
 var MyModule = {
   message: 'Hello World!',
@@ -152,12 +152,12 @@ var MyModule={
 Curly braces are required around blocks in loops and conditionals. This is [enforced by jshint](http://www.jshint.com/docs/options/#curly).
 
 **Don't do this:**
-```
+```javascript
 if(foo)
   console.log('bar');
 ```
 **Do this instead:**
-```
+```javascript
 if(foo){
   console.log('bar');
 }
@@ -166,14 +166,14 @@ if(foo){
 ## Strict Mode
 
 All modules should be wrapped in IIFEs or RequireJS CommonJS define calls, and use strict mode. This will be enforced by JSHint
-```
+```javascript
 (function(){
   'strict mode';
   //Code goes here
 })();
 ```
 Or
-```
+```javascript
 define(function(require, exports, module)){
   'strict mode';
   //code goes here
@@ -187,11 +187,11 @@ Unused variables should be removed from the code when they are no longer needed.
 Because some libraries expect function arguments with specific names and signatures, function parameters that are not used will not be ignored.
 
 **Don't do this:**
-```
+```javascript
 var x;  //x is never used
 ```
 **But this is okay:**
-```
+```javascript
 define(function(require, exports, module){
   //module is never used
 });
