@@ -29,6 +29,7 @@
     "jQuery": true,
     "loadFixtures": true,
     "module": true,
+    "Promise": true,
     "Request": true,
     "require": true,
     "Response": true,
