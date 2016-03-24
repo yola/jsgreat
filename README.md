@@ -281,12 +281,39 @@ export default {
 
 #### Importing
 
+Imports should be listed in alphabetical order by their assignment.
+Local imports should be listed separately from external imports.
+
+**Don't do this:**
+
+```javascript
+import moment from `moment`;
+import foo from './foo';
+import lodash from `lodash`;
+
+
+const foo = 'bar';
+```
+
+**Do this instead:**
+
+```javascript
+import lodash from `lodash`;
+import moment from `moment`;
+
+import foo from './foo';
+
+
+const foo = 'bar';
+```
+
 The members of module imports shouldn't be detached from their parent objects. This allows for mocks and stubs to be used during testing, and may allow for easier refactoring.
 
 **Don't do this:**
 
 ```javascript
 import {actions, requests} from `service-client`;
+
 
 const {fetchFoo} = requests;
 const {calculateBar} = actions;
@@ -298,6 +325,7 @@ let bar = fetchFoo().then(calculateBar);
 
 ```javascript
 import {actions, requests} from `service-client`;
+
 
 let bar = requests.fetchFoo()
   .then(actions.calculateBar);
