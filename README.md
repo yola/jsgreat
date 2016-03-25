@@ -1,222 +1,515 @@
 # jsgreat
-[![npm version](https://badge.fury.io/js/jsgreat.svg)](http://badge.fury.io/js/jsgreat)
 
-Our JavaScript code will (mostly) follow the [Google JavaScript Style Guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml). A few slight variations and additions are laid out below. There will also be exceptions to these rules in some existing code, but where possible, existing code should be updated as it is edited to conform to the style guide.
+[![npm Version](https://img.shields.io/npm/v/jsgreat.svg?style=flat-square)](https://www.npmjs.com/package/jsgreat)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/yola/jsgreat/master/LICENSE)
 
-Many of these options will be enforced by [this .jshintrc file](https://github.com/yola/wiki/blob/master/Files/.jshintrc). This file can be used by tools that support JSHint integration. For most projects, it is strongly recommended to use Grunt and the grunt-contrib-jshint plugin to run jshint.
+## Table of Contents
 
-The following additions and variations will be enforced:
+* [Introduction](#introduction)
+  - [Changes](#changes)
+  - [Linting](#linting)
+  - [Installation](#installation)
+* [Rules](#rules)
+  - [Naming](#naming)
+  - [Variables](#variables)
+    * [Variable statements](#variable-statements)
+    * [Unused Variables](#unused-variables)
+    * [Undeclared Variables](#undeclared-variables)
+    * [Using Variables Before Declaration](#using-variables-before-declaration)
+    * [Aligning Assignments](#aligning-assignments)
+  - [Constants](#constants)
+  - [Functions](#functions)
+    * [Anonymous Functions](#anonymous-functions)
+  - [Modules](#modules)
+    * [Exporting](#exporting)
+    * [Importing](#importing)
+  - [Promises](#promises)
+  - [JSDoc](#jsdoc)
+  - [Visibility](#visibility)
+  - [Indentation](#indentation)
+  - [Manipulating `this` context](#manipulating-this-context)
+  - [Curly Braces](#curly-braces)
+  - [Strict Mode](#strict-mode)
+  - [Coerced Types and Equality](#coerced-types-and-equality)
+  - [Trailing Whitespace](#trailing-whitespace)
+  - [80 Column Limit](#80-column-limit)
+* [License](#license)
 
-## Strings
-The guide [prefers `'` over `"`](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml?showone=Strings#Strings). We only require that quotes are used consistently within the file. This will be [enforced by jshint](http://www.jshint.com/docs/options/#quotmark).
+## Introduction
 
-## Indentation
-Prefer 2-space indentation for all Javascript and JSON files.
+This guide outlines the style for Yola's JavaScript code.
+When editing existing code, and where possible, said code should be updated to conform to the style guide.
 
-## Multiple Vars
-Prefer multiple `var` statements, each on their own line, for any variables that have assignments. Multiple variables without assignments can be `var`ed together on a single line.
+### Changes
+
+Proposed style changes should be discussed in a written format that can referenced.
+The style guide must be updated to reflect all changes.
+
+### Linting
+
+Much of this guide can be enforced by using a linter such as [JSHint](https://github.com/jshint/jshint).
+The provided [`.jshintrc`](https://github.com/yola/jsgreat/blob/master/.jshintrc) file should be used to help maintain conformity.
+
+### Installation
+
+Install via [npm](https://www.npmjs.com/package/jsgreat):
+
+```bash
+$ npm install jsgreat --save-dev
+```
+
+Extend the provided `.jshintrc` file:
+
+```json
+{
+  "extends": "./node_modules/jsgreat/.jshintrc"
+}
+```
+
+## Rules
+
+Serving as a base, the [Google JavaScript Style Guide](https://google.github.io/styleguide/javascriptguide.xml) should be referenced for topics not addressed below.
+
+### Naming
+
+* Variables, constants, enums, methods, and properties should be written in `lowerCamelCase`.
+* Classes and global namespaces should be written in `UpperCamelCase`.
+* File names should be written in `hyphenated-lowercase.js`.
+
+### Variables
+
+* When available, the `let` keyword should be used instead of `var`.
+
+#### Variable statements
+
+* Variable statements with multiple assignments should not be used.
+* Each variable assignment should exist on its own line.
+* Multiple variables without assignments can be declared on a single line.
 
 **Don't do this:**
+
 ```javascript
-var foo = 'foo',
+let foo = 'foo',
   bar = 'bar',
   baz = 'baz';
 ```
+
 **Do this instead:**
+
 ```javascript
-var foo = 'foo';
-var bar = 'bar';
-var baz = 'baz';
+let foo = 'foo';
+let bar = 'bar';
+let baz = 'baz';
 ```
+
 **This is okay, too:**
+
 ```javascript
-var foo, bar, baz;
+let foo, bar, baz;
 ```
 
-## Function Declarations vs. Function Expressions
+#### Unused Variables
 
-Prefer `var`ed function expressions over function declarations.
+Unused variables should be removed from the code when they are no longer needed.
+
+Although discouraged, unused function parameters are allowed. This is due to some libraries expecting specific function signatures.
 
 **Don't do this:**
+
 ```javascript
-function() {
-   function foo() { ... };
-}();
-```
-**Do this instead:**
-```javascript
-function() {
-  var foo = function() { ... };
-}();
+const doSomething = function() {
+  // foo is never used
+  let foo;
+
+  return 'Hello World!';
+}
 ```
 
-## Aligning Assignments
+**This is allowed:**
 
-Variable assignments should not be aligned by value.
+```javascript
+const doSomething = function(error, data) {
+  // data is never used
+  if (error) {
+    throw error;
+  }
+});
+```
+
+#### Undeclared Variables
+
+All variables must be explicitly declared.
+
+This helps catch errors due to mistyped variable names and copy & pasting.
+Additionally, it helps prevent dependence on the global state.
+As a result, modules are forced to be explicit about their dependencies.
+
+For example, using an undeclared `$` variable in Backbone views may have unexpected results.
+Using the global jQuery variable (`$`) accidentally, assuming it exists, will result in operations affecting the entire DOM, instead of only affecting the view.
+
+#### Using Variables Before Declaration
+
+Variables must be declared before they are used. Hoisting makes it possible to accidentally use a variable before it's declared.
+
+#### Aligning Assignments
+
+Variable assignments shouldn't be aligned by value.
+
 **Don't do this:**
-```javascript
-var foo      = 'foo';
-var bar      = 'bar';
-var fizzbuzz = 'fizzbuzz';
 
-var obj = {
+```javascript
+let foo      = 'foo';
+let bar      = 'bar';
+let fizzbuzz = 'fizzbuzz';
+
+let obj = {
   foo     : 'foo',
   bar     : 'bar',
   fizzbuzz: 'fizzbuzz'
 };
 ```
-**Do this instead:**
-```javascript
-var foo = 'foo';
-var bar = 'bar';
-var fizzbuzz = 'fizzbuzz';
 
-var obj = {
+**Do this instead:**
+
+```javascript
+let foo = 'foo';
+let bar = 'bar';
+let fizzbuzz = 'fizzbuzz';
+
+let obj = {
   foo: 'foo',
   bar: 'bar',
   fizzbuzz: 'fizzbuzz'
 };
 ```
 
-## Anonymous Callback Functions
+### Constants
 
-Prefer `var`ed function expressions over anonymous functions for callbacks where it makes sense.
+This section conflicts with the Google JavaScript Style Guide.
+The following rules should be followed instead.
+
+* The `@const` tag shouldn't be used.
+* When available, the `const` keyword should be used.
+* Consider [freezing](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) object constants when applicable.
+
+### Functions
+
+Function expressions should be used instead of function declarations.
 
 **Don't do this:**
+
+```javascript
+function foo() {
+  /// [...]
+};
+```
+
+**Do this instead:**
+
+```javascript
+let foo = function() {
+  /// [...]
+};
+```
+
+#### Anonymous Functions
+
+Function expressions should be used instead of anonymous functions where applicable.
+[IIFEs](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression) shouldn't be used.
+
+**Don't do this:**
+
 ```javascript
 $('.someElement').click(function(){
   console.log('It was clicked!');
 });
 ```
-**Do this instead:**
+
 ```javascript
-var someElementClicked = function(){
+fetchFoo()
+  .then(function(foo) {
+    // Do something
+  });
+```
+
+**Do this instead:**
+
+```javascript
+const someElementClicked = function(){
   console.log('It was clicked!');
 });
+
 $('.someElement').click(someElementClicked);
 ```
-This is especially important in `new`ed objects like Backbone Models and Views, where scope is important, and callbacks often reference other properties on the instance.
 
-## Manipulating `this` context
+```javascript
+const calculateBar = function(foo) {
+  // Do something
+};
 
-Prefer calling functions in the required scope vs. saving `this` in a `that` or `self` variable.
+fetchFoo()
+  .then(calculateBar);
+```
+
+### Modules
+
+Modules should be small, [composable](http://en.wikipedia.org/wiki/Composability), [stateless](http://en.wikipedia.org/wiki/State_(computer_science)), and self contained.
+
+#### Exporting
+
+Functions and primitive types shouldn't be default exports.
 
 **Don't do this:**
+
 ```javascript
-// Code that needs access to local variables and `this` in an anonymous callback
-var MyModule = {
-  message: 'Hello World!',
-  doGetAndCallback: function(callback){
+export default function (foo, bar) {
+  // Do something
+};
+```
+
+**Do this instead:**
+
+```javascript
+export const doSomething = function(foo, bar) {
+  // Do something
+};
+
+export default {
+  doSomething
+};
+```
+
+#### Importing
+
+Imports should be listed in alphabetical order by their assignment.
+Local imports should be listed separately from external imports.
+
+**Don't do this:**
+
+```javascript
+import moment from `moment`;
+import foo from './foo';
+import lodash from `lodash`;
+
+
+const foo = 'bar';
+```
+
+**Do this instead:**
+
+```javascript
+import lodash from `lodash`;
+import moment from `moment`;
+
+import foo from './foo';
+
+
+const foo = 'bar';
+```
+
+The members of module imports shouldn't be detached from their parent objects. This allows for mocks and stubs to be used during testing, and may allow for easier refactoring.
+
+**Don't do this:**
+
+```javascript
+import {actions, requests} from `service-client`;
+
+
+const {fetchFoo} = requests;
+const {calculateBar} = actions;
+
+let bar = fetchFoo().then(calculateBar);
+```
+
+**Do this instead:**
+
+```javascript
+import {actions, requests} from `service-client`;
+
+
+let bar = requests.fetchFoo()
+  .then(actions.calculateBar);
+```
+
+### Promises
+
+Asynchronous operations should be written using promises.
+
+* Libraries reliant on promises should adhere to the [Promises/A+ standard]([Promises](http://promises-aplus.github.io/promises-spec/)).
+* [Bluebird](http://bluebirdjs.com) is Yola's promise implementation of choice.
+* ["You're missing the point of promises"](http://domenic.me/2012/10/14/youre-missing-the-point-of-promises/) by Domenic Denicola
+  - A valued article discussing the philosophy behind promises
+
+### JSDoc
+
+JSDoc shouldn't be used. Rules referring to JSDoc usage in the Google JavaScript Style Guide should be ignored.
+
+### Visibility
+
+Private and protected members should be prefixed with an underscore (`_`).
+
+**Don't do this:**
+
+```javascript
+class Foo {
+  /** @private */
+  doSomething() {
+    // Do something
+  }
+}
+```
+
+**Do this instead:**
+
+```javascript
+class Foo {
+  _doSomething() {
+    // Do something
+  }
+}
+```
+
+### Indentation
+
+Two space indentation should be used for all JavaScript and JSON files.
+
+### Manipulating `this` context
+
+Instead of storing context within a variable, functions should be called within the required scope.
+
+Below are examples of code where a property needs to be accessed from a seperate context.
+
+**Don't do this:**
+
+```javascript
+class MyClass {
+  constructor() {
+    this.message = 'Hello World!';
+  }
+
+  fetchFoo: function(){
+    // Context is stored in a variable
     var that = this;
-    $.get('some/ajax/request', function(){
-      callback(that.message);
-    });
+
+    const getMessage = function(){
+      return that.message;
+    };
+
+    return fetch('some/ajax/request')
+      .then(getMessage);
   }
-};
+}
 ```
+
 **Do either of these instead:**
-```javascript
-// Save just the info you need
-var MyModule = {
-  message: 'Hello World!',
-  doGetAndCallback: function(callback){
-    var message = this.message;
-    $.get('some/ajax/request', function(){
-      callback(message);
-    });
-  }
-};
 
-// Change the scope to make sure it is called in the proper context
-var MyModule = {
-  message: 'Hello World!',
-  doGetAndCallback: function(callback){
-    $.get('some/ajax/request', _.bind(function(){
-      callback(this.message);
-    }, this));
-  }
-};
-```
-**Or, better yet, return a Deferred/Promise, and let the caller setup the callback on their end:**
 ```javascript
-var MyModule={
-  message: 'Hello World!',
-  doGet: function(){
-    return $.get('some/ajax/request');
+class MyClass {
+  constructor() {
+    this.message = 'Hello World!';
   }
-};
+
+  fetchFoo: function(){
+    return fetch('some/ajax/request')
+      // An arrow function is used to maintain context.
+      .then(() => this.message);
+  }
+}
 ```
 
-## Curly Braces
+```javascript
+class MyClass {
+  constructor() {
+    this.message = 'Hello World!';
+  }
 
-Curly braces are required around blocks in loops and conditionals. This is [enforced by jshint](http://www.jshint.com/docs/options/#curly).
+  fetchFoo: function(){
+    let getMessage = function(){
+      return this.message;
+    };
+
+    // The function is bound to the given context.
+    getMessage = getMessage.bind(this);
+
+    return fetch('some/ajax/request')
+      .then(getMessage);
+  }
+}
+```
+
+```javascript
+class MyClass {
+  constructor() {
+    this.message = 'Hello World!';
+  }
+
+  fetchFoo: function(){
+    // The message is assigned to a local variable
+    const message = this.message
+
+    const getMessage = function(){
+      return message;
+    };
+
+    return fetch('some/ajax/request')
+      .then(getMessage);
+  }
+}
+```
+
+### Curly Braces
+
+Curly braces are required around blocks in loops and conditionals.
 
 **Don't do this:**
+
 ```javascript
-if(foo)
+if (foo)
   console.log('bar');
 ```
+
 **Do this instead:**
+
 ```javascript
-if(foo){
+if (foo) {
   console.log('bar');
 }
 ```
 
-## Strict Mode
+### Strict Mode
 
-All modules should be wrapped in IIFEs or RequireJS CommonJS define calls, and use strict mode. This will be enforced by JSHint
-```javascript
-(function(){
-  'strict mode';
-  //Code goes here
-})();
-```
-Or
-```javascript
-define(function(require, exports, module)){
-  'strict mode';
-  //code goes here
-});
-```
+* All modules should be have strict mode enabled.
+* ES6 modules have strict mode enabled by default.
+* Non-ES6 modules should have `'use strict';` placed at the top of the file.
 
-## Unused Variables
+### Coerced Types and Equality
 
-Unused variables should be removed from the code when they are no longer needed. This will be [enforced by jshint](http://www.jshint.com/docs/options/#unused).
+Strict comparison (`===`) should be used instead of abstract comparison (`==`).
 
-Because some libraries expect function arguments with specific names and signatures, function parameters that are not used will not be ignored.
+### Trailing Whitespace
+
+Lines shouldn't have whitespace at the end.
+
+### 80 Column Limit
+
+Lines should not exceed 80 characters.
+
+In specific cases, long lines can be ignored by the linter.
 
 **Don't do this:**
+
 ```javascript
-var x;  //x is never used
-```
-**But this is okay:**
-```javascript
-define(function(require, exports, module){
-  //module is never used
-});
+let longTestPermalinkUrl = 'https://example.com/v1/en/2016/03/14/assets/images/1234.jpg';
 ```
 
-## Coerced Types and Equality
+**Do this instead:**
 
-Prefer `===` over `==`. This will be [enforced by JShint](http://www.jshint.com/docs/options/#eqeqeq).
+```javascript
+let longTestPermalinkUrl;
+longTestPermalinkUrl = 'https://example.com/v1/en/2016/03/14/assets/images/1234.jpg'; // jshint ignore:line
+```
 
-## Undefined Variables
+## License
 
-All variables must be explicitly defined. This option will be [enforced by JSHint](http://www.jshint.com/docs/options/#undef).
-
-This is a simple way to catch mistyped variable names and copy/paste errors, but it also helps to prevent over-dependence on the global namespace, and forces modules to be more explicit about their dependencies.
-
-One specific example of why this can be important is in Backbone views, which use a scoped `$` function to find elements inside the view. If you accidentally use the global `$('.selector')` instead of `this.$('.selector')`, you're searching the full DOM instead of just your view.
-
-## Using Variables Before Definition
-
-Variables must be defined earlier in the code than they are used. (Hoisting makes it possible to accidentally use a variable before it's defined.) This will be [enforced by JSHint](http://www.jshint.com/docs/options/#latedef).
-
-## Trailing Whitespace
-
-Lines shouldn't have whitespace at the end. We've always enforced this. Now [JSHint will enforce it](http://www.jshint.com/docs/options/#trailing).
-
-## 80 Column Limit
-
-Although the style guide isn't fully explicit about it, lines should not exceed 80 characters.
+Copyright &copy; 2016 [Yola](http://yola.com).
+<br>Released under the [MIT License](https://github.com/yola/jsgreat/blob/master/LICENSE).
