@@ -502,7 +502,7 @@ In specific cases, long lines can be ignored by the linter.
 let longTestPermalinkUrl = 'https://example.com/v1/en/2016/03/14/assets/images/1234.jpg';
 ```
 
-**This is allowed:**
+**Do this instead:**
 
 ```javascript
 let longTestPermalinkUrl;
