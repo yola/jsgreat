@@ -1,6 +1,7 @@
 {
   "curly": true,
   "eqeqeq": true,
+  "eqnull": true,
   "expr": true,
   "latedef": true,
   "maxlen": 80,
