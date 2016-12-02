@@ -201,6 +201,8 @@ define(function(require, exports, module){
 
 Prefer `===` over `==`. This will be [enforced by JShint](http://www.jshint.com/docs/options/#eqeqeq).
 
+However, there is [an exception](http://jshint.com/docs/options/#eqnull) for `null` comparisons. i.e. `== null` is acceptable.
+
 ## Undefined Variables
 
 All variables must be explicitly defined. This option will be [enforced by JSHint](http://www.jshint.com/docs/options/#undef).
