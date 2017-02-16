@@ -1,14 +1,18 @@
 # jsgreat
 [![npm version](https://badge.fury.io/js/jsgreat.svg)](http://badge.fury.io/js/jsgreat)
 
-Our JavaScript code will (mostly) follow the [Google JavaScript Style Guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml). A few slight variations and additions are laid out below. There will also be exceptions to these rules in some existing code, but where possible, existing code should be updated as it is edited to conform to the style guide.
+Our JavaScript code will (mostly) follow the [Google JavaScript Style Guide][]. A few slight variations and additions are laid out below. There will also be exceptions to these rules in some existing code, but where possible, existing code should be updated as it is edited to conform to the style guide.
+
+[Google JavaScript Style Guide]: https://google.github.io/styleguide/jsguide.html
 
 Many of these options will be enforced by [this .jshintrc file](https://github.com/yola/wiki/blob/master/Files/.jshintrc). This file can be used by tools that support JSHint integration. For most projects, it is strongly recommended to use Grunt and the grunt-contrib-jshint plugin to run jshint.
 
 The following additions and variations will be enforced:
 
 ## Strings
-The guide [prefers `'` over `"`](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml?showone=Strings#Strings). We only require that quotes are used consistently within the file. This will be [enforced by jshint](http://www.jshint.com/docs/options/#quotmark).
+The guide [prefers `'` over `"`][strings]. We only require that quotes are used consistently within the file. This will be [enforced by jshint](http://www.jshint.com/docs/options/#quotmark).
+
+[strings]: https://google.github.io/styleguide/jsguide.html#features-string-literals
 
 ## Indentation
 Prefer 2-space indentation for all Javascript and JSON files.
