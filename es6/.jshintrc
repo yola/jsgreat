@@ -1,4 +1,5 @@
 {
   "extends": "../.jshintrc",
-  "esnext": true
+  "esnext": true,
+  "module": true
 }
