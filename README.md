@@ -94,10 +94,10 @@ $('.someElement').click(function(){
 ```
 **Do this instead:**
 ```javascript
-var someElementClicked = function(){
+var logItWasClicked = function(){
   console.log('It was clicked!');
 });
-$('.someElement').click(someElementClicked);
+$('.someElement').click(logItWasClicked);
 ```
 This is especially important in `new`ed objects like Backbone Models and Views, where scope is important, and callbacks often reference other properties on the instance.
 
