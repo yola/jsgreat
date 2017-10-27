@@ -1,6 +1,6 @@
 {
   "name": "jsgreat",
-  "version": "0.1.9",
+  "version": "0.2.0-dev.1",
   "description": "Yola's guide to writing JS great.",
   "repository": {
     "type": "git",
@@ -12,7 +12,7 @@
     "url": "https://github.com/yola/jsgreat/issues"
   },
   "homepage": "https://github.com/yola/jsgreat",
-  "devDependencies": {
+  "dependencies": {
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
