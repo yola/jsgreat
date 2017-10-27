@@ -1,3 +1,11 @@
 {
-  "extends": ["airbnb"]
+  "extends": ["airbnb"],
+  "rules": {
+    "camelcase": 0,
+    "func-names": 0,
+    "lines-around-directive": 0,
+    "one-var": 0,
+    "padded-blocks": 0,
+    "space-before-function-paren": ["error", "never"]
+  }
 }
