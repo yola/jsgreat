@@ -5,7 +5,8 @@ Our JavaScript code will (mostly) follow the [Google JavaScript Style Guide][]. 
 
 [Google JavaScript Style Guide]: https://google.github.io/styleguide/jsguide.html
 
-Many of these options will be enforced by [this .jshintrc file](https://github.com/yola/wiki/blob/master/Files/.jshintrc). This file can be used by tools that support JSHint integration. For most projects, it is strongly recommended to use Grunt and the grunt-contrib-jshint plugin to run jshint.
+Many of these options will be enforced by [this .jshintrc file](https://github.com/yola/wiki/blob/master/Files/.jshintrc). This file can be used by tools that support JSHint integration. For most projects, it is strongly recommended to use Grunt and the grunt-contrib-jshint plugin to run jshint.  
+Tip: you can add `grunt jshint:fresh` into `.git/hooks/pre-commit` to run linter for changed files before commit.
 
 The following additions and variations will be enforced:
 
